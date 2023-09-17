@@ -1,4 +1,4 @@
-package ru.gb.ArrayTools;
+package ru.gb.ArrayActions;
 
 import ru.gb.Exceptions.MyArrayDataException;
 

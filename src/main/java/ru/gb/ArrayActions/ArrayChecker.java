@@ -1,52 +1,53 @@
-package ru.gb.ArrayTools;
+package ru.gb.ArrayActions;
 
 import ru.gb.Exceptions.MyArrayDataException;
 import ru.gb.Exceptions.MyArraySizeException;
 
-import static ru.gb.ArrayTools.ArrayAdder.convertAndSum;
+import static ru.gb.ArrayActions.ArrayAdder.convertAndSum;
 
-public class ArrayTools {
+/**
+ * Класс для проверки и печати массива
+ */
+public class ArrayChecker {
 
 
     /**
-     * Метод принимает двухмерный массив строк и его описание,
-     * проверяет, что размер массива равен 4x4, иначе выбрасывает исключение.
-     * Затем выполняет действия над массивом.
+     * Метод для проверки размера массива. Есои массив не равен 4x4, выбрасывает исключение.
+     * Затем печатает и вызвает метод суммирования.
      *
      * @param array       двухмерный массив строк для проверки
-     * @param description описание массива, используется в сообщении об ошибке
      * @throws MyArraySizeException если размер массива не равен 4x4
      */
-    public static void processArray(String[][] array, String description) throws MyArraySizeException {
-        if (array == null) throw new MyArraySizeException("Что-то пошло не так. \n" +
-                "Получено значение null вместо массива (4х4)!");
+    public static void checkArray(String[][] array) throws MyArraySizeException {
+        if (array == null) throw new MyArraySizeException("Ошибка. \n" +
+                "Массива не существует. null вместо массива 4х4");
         System.out.println("Массив");
         printArray(array);
         if (array.length != 4 || array[0].length != 4) {
-            throw new MyArraySizeException(String.format("Массив %s должен быть размером 4х4!", description));
+            throw new MyArraySizeException(String.format("Массив неверного размера"));
         } else {
             try {
-                // Вызываем метод convertAndSum, который преобразует строки в числа и суммирует их
+                // Метод преобразования и суммирования
                 int sum = convertAndSum(array);
-                // Выводим результат
 
-                System.out.println("Сумма: " + sum);
+                // Печать результата
+                System.out.println("Сумма элементов массива: " + sum);
             } catch (MyArrayDataException e) {
-                // Если возникло исключение, выводим сообщение об ошибке
-                System.out.println("Неверные данные в массиве в строке " + e.getRow() + ", колонке " + e.getCol());
+                // Поймали исключение, выводим сообщение об ошибке
+                System.out.println("Не число в массиве в строке " + e.getRow() + ", колонке " + e.getCol());
             }
         }
     }
 
     /**
-     * Метод для вывода двухмерного массива с подстраиванием ширины колонок
+     * Метод печати массива
      *
      * @param arr двухмерный массив строк
      */
     public static void printArray(String[][] arr) {
         for (String[] strings : arr) {
             for (String string : strings) {
-                System.out.printf("%-5s", string);
+                System.out.printf("%-3s", string);
             }
             System.out.println();
         }
